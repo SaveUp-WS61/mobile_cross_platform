@@ -94,7 +94,7 @@ class _CardViewState extends State<_CardView> {
                                   ? const Color(0xFFE95D5D)
                                   : null,
                               child: Image.asset(
-                                'lib/assets/mastercard.png',
+                                'assets/mastercard.png',
                               ),
                             ),
                           ),
@@ -107,7 +107,7 @@ class _CardViewState extends State<_CardView> {
                                   ? const Color(0xFFE95D5D)
                                   : null,
                               child: Image.asset(
-                                'lib/assets/visa.png',
+                                'assets/visa.png',
                               ),
                             ),
                           ),

@@ -67,6 +67,9 @@ flutter:
     - assets/profile.jpg
     - assets/background_profile.jpg
     - assets/random_product.jpg
+    - assets/mastercard.png
+    - assets/visa.png
+    - assets/coca_cola.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

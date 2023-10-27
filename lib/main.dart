@@ -3,10 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:saveup/providers/chat_provider.dart';
 import 'package:saveup/screens/add_card_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
+import 'package:saveup/screens/cart_screen.dart';
+import 'package:saveup/screens/checkout_screen.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
 import 'package:saveup/screens/products_screen.dart';
 import 'package:saveup/screens/purchase_confirmation_screen.dart';
+import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 
 void main() {
@@ -45,6 +48,9 @@ class MainApp extends StatelessWidget {
           "history_buys": (context) => const HistoryBuysScreen(),
           "bot_chat": (context) => const BotChatScreen(),
           "add_card": (context) => const AddCardScreen(),
+          "cart": (context) => const CartScreen(),
+          "checkout": (context) => const CheckoutScreen(),
+          "search_products": (context) => const SearchProductsScreen(),
         },
       ),
     );

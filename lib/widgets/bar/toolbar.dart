@@ -10,11 +10,11 @@ class Toolbar extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.shopping_cart),
-            onPressed: (){},
+            onPressed: (){ Navigator.of(context).pushNamed("cart"); },
           ),
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: (){},
+            onPressed: (){ Navigator.of(context).pushNamed("search_products"); },
           )
         ],
         backgroundColor: const Color.fromARGB(255, 103, 197, 200),
