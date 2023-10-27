@@ -6,9 +6,12 @@ import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
+import 'package:saveup/screens/login_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
 import 'package:saveup/screens/products_screen.dart';
 import 'package:saveup/screens/purchase_confirmation_screen.dart';
+import 'package:saveup/screens/recover_password_screen.dart';
+import 'package:saveup/screens/register_screen.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 
@@ -51,6 +54,9 @@ class MainApp extends StatelessWidget {
           "cart": (context) => const CartScreen(),
           "checkout": (context) => const CheckoutScreen(),
           "search_products": (context) => const SearchProductsScreen(),
+          "login": (context) => LoginScreen(),
+          "recover_password":(context) => RecoverPasswordScreen(),
+          "register":(context) => RegisterScreen(),
         },
       ),
     );
