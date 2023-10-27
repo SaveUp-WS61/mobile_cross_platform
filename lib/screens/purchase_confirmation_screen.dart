@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:saveup/pages/appbar_screen.dart';
+import 'package:saveup/widgets/bar/toolbar.dart';
 
-class PurchaseConfirmation extends StatelessWidget {
-  const PurchaseConfirmation({super.key});
+class PurchaseConfirmationScreen extends StatelessWidget {
+  const PurchaseConfirmationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppbarScreen(),
+        child: Toolbar(),
       ),
       body: Center(
         child: Column(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NavbarScreen extends StatelessWidget {
-  const NavbarScreen({super.key});
+class Navbar extends StatelessWidget {
+  const Navbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,12 @@ class NavbarScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text("Pagina principal"),
-            onTap: () {print("Pagina principal");},
+            onTap: () { Navigator.of(context).pushReplacementNamed("products"); },
           ),
           ListTile(
             leading: Icon(Icons.inbox),
             title: Text("Bandeja de entrada"),
-            onTap: () {print("Bandeja de entrada");},
+            onTap: () { Navigator.of(context).pushNamed("bot_chat"); },
           ),
           ListTile(
             leading: Icon(Icons.person),
@@ -41,7 +41,7 @@ class NavbarScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.history),
             title: Text("Historial"),
-            onTap: () {print("Historial");},
+            onTap: () { Navigator.of(context).pushNamed("history_buys"); },
           ),
           Expanded(
             child: Container(),
@@ -49,7 +49,7 @@ class NavbarScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Cerrar sesión"),
-            onTap: () {print("Cerrar sesión");},
+            onTap: () { Navigator.of(context).pushReplacementNamed("logout"); },
           ),
         ],
       ),

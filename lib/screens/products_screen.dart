@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saveup/pages/appbar_screen.dart';
-import 'package:saveup/pages/navbar_screen.dart';
+import 'package:saveup/widgets/bar/navbar.dart';
+import 'package:saveup/widgets/bar/toolbar.dart';
 
 class Product {
   final String nombre;
@@ -67,10 +67,10 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavbarScreen(),
+      drawer: Navbar(),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppbarScreen(),
+        child: Toolbar(),
       ),
       body: SingleChildScrollView(
           child: Center(

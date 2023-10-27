@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saveup/pages/appbar_screen.dart';
-import 'package:saveup/pages/navbar_screen.dart';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
@@ -8,11 +6,6 @@ class LogoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavbarScreen(),
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppbarScreen(),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,6 +27,7 @@ class LogoutScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
                     alignment: WrapAlignment.center,
                     children: <Widget>[
@@ -52,8 +46,9 @@ class LogoutScreen extends StatelessWidget {
                             height: 0,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () { Navigator.of(context).pushReplacementNamed("products"); },
                       ),
+                      const SizedBox(width: 30),
                       MaterialButton(
                         color: const Color(0xFFE95D5D),
                         shape: RoundedRectangleBorder(
@@ -69,7 +64,7 @@ class LogoutScreen extends StatelessWidget {
                             height: 0,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () { Navigator.of(context).pushReplacementNamed("products"); },
                       ),
                     ],
                   ),
