@@ -32,98 +32,105 @@ class CheckoutPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: Card(
-        color: Color(0xFF201F34),
-        margin: EdgeInsets.all(16.0),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Nombre',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+              color: Color(0xFF201F34),
+              margin: EdgeInsets.all(16.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Nombre',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Apellido',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Dirección',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Departamento',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Distrito',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Número Telefónico',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Número de Tarjeta',
+                          labelStyle: colorLabel,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        style: colorText,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton(
+                          style: colorButton,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed("purchase_confirmation");
+                          },
+                          child: Text(
+                            'Aceptar Compra',
+                            style: colorButtonText,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Apellido',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Dirección',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Departamento',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Distrito',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Número Telefónico',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Número de Tarjeta',
-                  labelStyle: colorLabel,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                style: colorText,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  style: colorButton,
-                  onPressed: () { Navigator.of(context).pushReplacementNamed("purchase_confirmation"); },
-                  child: Text(
-                    'Aceptar Compra',
-                    style: colorButtonText,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      )),
+              ))),
     );
   }
 }
