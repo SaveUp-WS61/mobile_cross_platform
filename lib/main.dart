@@ -14,6 +14,8 @@ import 'package:saveup/screens/recover_password_screen.dart';
 import 'package:saveup/screens/register_screen.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
+import 'package:saveup/screens/perfil_screen.dart';
+import 'package:saveup/screens/editar_perfil.dart';
 
 void main() {
   runApp(const MainApp());
@@ -57,6 +59,7 @@ class MainApp extends StatelessWidget {
           "login": (context) => LoginScreen(),
           "recover_password":(context) => RecoverPasswordScreen(),
           "register":(context) => RegisterScreen(),
+          "profile":(context) => PerfilComprador(),
         },
       ),
     );
