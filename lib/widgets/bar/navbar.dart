@@ -20,28 +20,37 @@ class Navbar extends StatelessWidget {
               ),
             ),
             decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/background_profile.jpg"), fit: BoxFit.cover)
-            ),
+                image: DecorationImage(
+                    image: AssetImage("assets/background_profile.jpg"),
+                    fit: BoxFit.cover)),
           ),
           ListTile(
             leading: Icon(Icons.home),
             title: Text("Pagina principal"),
-            onTap: () { Navigator.of(context).pushReplacementNamed("products"); },
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("products");
+            },
           ),
           ListTile(
             leading: Icon(Icons.inbox),
             title: Text("Bandeja de entrada"),
-            onTap: () { Navigator.of(context).pushNamed("bot_chat"); },
+            onTap: () {
+              Navigator.of(context).pushNamed("bot_chat");
+            },
           ),
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Perfil"),
-            onTap: () {print("Perfil");},
+            onTap: () {
+              print("Perfil");
+            },
           ),
           ListTile(
             leading: Icon(Icons.history),
             title: Text("Historial"),
-            onTap: () { Navigator.of(context).pushNamed("history_buys"); },
+            onTap: () {
+              Navigator.of(context).pushNamed("history_buys");
+            },
           ),
           Expanded(
             child: Container(),
@@ -49,7 +58,9 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Cerrar sesión"),
-            onTap: () { Navigator.of(context).pushReplacementNamed("logout"); },
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("logout");
+            },
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:saveup/screens/add_card_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
+import 'package:saveup/screens/edit_publication_product.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
 import 'package:saveup/screens/login_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
@@ -12,6 +13,7 @@ import 'package:saveup/screens/products_screen.dart';
 import 'package:saveup/screens/purchase_confirmation_screen.dart';
 import 'package:saveup/screens/recover_password_screen.dart';
 import 'package:saveup/screens/register_screen.dart';
+import 'package:saveup/screens/save_publication_product.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 
@@ -37,17 +39,16 @@ class MainApp extends StatelessWidget {
     */
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ChatProvide())
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => ChatProvide())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "splash",
         routes: {
           "splash": (context) => const SplashScreen(),
-          "products":(context) => ProductsScreen(),
+          "products": (context) => ProductsScreen(),
           "logout": (context) => const LogoutScreen(),
-          "purchase_confirmation": (context) => const PurchaseConfirmationScreen(),
+          "purchase_confirmation": (context) =>
+              const PurchaseConfirmationScreen(),
           "history_buys": (context) => const HistoryBuysScreen(),
           "bot_chat": (context) => const BotChatScreen(),
           "add_card": (context) => const AddCardScreen(),
@@ -55,8 +56,10 @@ class MainApp extends StatelessWidget {
           "checkout": (context) => const CheckoutScreen(),
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
-          "recover_password":(context) => RecoverPasswordScreen(),
-          "register":(context) => RegisterScreen(),
+          "recover_password": (context) => RecoverPasswordScreen(),
+          "register": (context) => RegisterScreen(),
+          "edit_publication": (context) => EditPublicationProduct(),
+          "save_publication": (context) => SavePublicationProduct(),
         },
       ),
     );
