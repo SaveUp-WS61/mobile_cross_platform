@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saveup/screens/home.dart';
 Color myCustomColor = Color(0xFFE95D5D);
 // Define el widget de TextFormField reutilizable
 Widget buildFormTextField(TextEditingController controller, String labelText, {bool isPassword = false}) {
@@ -20,6 +19,7 @@ Widget buildFormTextField(TextEditingController controller, String labelText, {b
     ),
   );
 }
+
 class BackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -34,54 +34,59 @@ class BackgroundImage extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: myCustomColor,
-        title: Text('Inicio de Sesión'),
-      ),
       body: Stack(
         children: [
           BackgroundImage(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildFormTextField(emailController, 'Correo Electrónico'),
-                SizedBox(height: 16),
-                buildFormTextField(passwordController, 'Contraseña', isPassword: true),
-                SizedBox(height: 16),
+              children: <Widget>[
+                Image.asset(
+                  'assets/logo.png', // Ruta de tu logotipo
+                  width: 100, // Ancho del logotipo
+                  height: 100, // Alto del logotipo
+                ),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Lógica para iniciar sesión
-                    final email = emailController.text;
-                    final password = passwordController.text;
-                    // Agregar aquí la lógica de autenticación
+                    Navigator.of(context).pushNamed("login");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí
                   ),
-                  child: Text('Iniciar Sesión',
+                  child: Text(
+                    'Iniciar Sesión',
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
                 ),
-                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed("type_of_user");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: myCustomColor, // Utiliza tu color personalizado aquí
+                  ),
+                  child: Text('Registrarse',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/forgot_password');
+                    Navigator.of(context).pushReplacementNamed("recover_password");
                   },
                   child: Text('¿Olvidó su Contraseña?',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),),
+                    style:TextStyle(color: Colors.black),),
                 ),
+                // Etiquetas adicionales
+                // Más elementos de UI si es necesario
               ],
             ),
           ),
