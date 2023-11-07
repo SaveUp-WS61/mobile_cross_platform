@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable
+
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
