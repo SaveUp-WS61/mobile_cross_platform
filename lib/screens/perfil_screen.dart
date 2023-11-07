@@ -87,6 +87,14 @@ class _PerfilCompradorState extends State<PerfilComprador> {
                 });
 
               },
+
+              style: ElevatedButton.styleFrom(
+
+                primary: Color(0xFFE95D5D),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
               child: Text("Editar Perfil"),
             ),
           ),

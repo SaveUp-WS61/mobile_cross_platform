@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'SuccessScreen.dart'; // Importa el archivo donde se encuentra SuccessScreen
+import 'EditarTarjetaScreen.dart'; // Importa el archivo donde se encuentra EditarTarjetaScreen
 import 'perfil_screen.dart';
 
 class EditarPerfil extends StatefulWidget {
@@ -85,32 +86,96 @@ class _EditarPerfilState extends State<EditarPerfil> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Editar Perfil"),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF67C5C8),
       ),
-      body: SingleChildScrollView( // Envuelve el contenido con un SingleChildScrollView
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _buildTextField("Nombre", nombreController),
-              _buildTextField("Apellido", apellidoController),
+              SizedBox(height: 20),
+              InkWell(
+                onTap: () {
+                  // Agregar aquí la funcionalidad para cambiar la foto
+                },
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/foto_profile.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Cambiar Foto",
+                      style: TextStyle(
+                        color: Color(0xFFE95D5D),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _buildTextFieldPair("Nombre", nombreController, "Apellido", apellidoController),
               _buildTextField("Correo", correoController),
-              _buildTextField("Departamento", departamentoController),
-              _buildTextField("Distrito", distritoController),
+              _buildTextFieldPair("Departamento", departamentoController, "Distrito", distritoController),
               _buildTextField("Dirección", direccionController),
               _buildTextField("Celular", celularController),
               _buildTextField("Contraseña", contrasenaController),
               SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  _guardarCambios();
-                },
-                child: Text("Guardar Cambios"),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _guardarCambios();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFE95D5D),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      child: Text(
+                        "Guardar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return EditarTarjetaScreen(); // Reemplaza con el nombre de tu nuevo screen
+                            },
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+
+                        primary: Color(0xFFE95D5D),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      child: Text(
+                        "Editar tarjeta",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -119,13 +184,15 @@ class _EditarPerfilState extends State<EditarPerfil> {
     );
   }
 
+
+
   Widget _buildTextField(String label, TextEditingController controller) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(label),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 50),
+          margin: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
             color: Color(0xFF201F34), // Color de fondo
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -140,6 +207,63 @@ class _EditarPerfilState extends State<EditarPerfil> {
           ),
         ),
         SizedBox(height: 16),
+      ],
+    );
+  }
+
+
+
+  Widget _buildTextFieldPair(String label1, TextEditingController controller1, String label2, TextEditingController controller2) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(label1),
+              Container(
+                margin: EdgeInsets.only(left: 20, right: 5),
+                decoration: BoxDecoration(
+                  color: Color(0xFF201F34), // Color de fondo
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  border: Border.all(
+                    color: Color(0xFF201F34),
+                  ),
+                ),
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  controller: controller1,
+                  style: TextStyle(color: Colors.white), // Color del texto
+                ),
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(label2),
+              Container(
+                margin: EdgeInsets.only(right: 20, left: 5),
+                decoration: BoxDecoration(
+                  color: Color(0xFF201F34), // Color de fondo
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  border: Border.all(
+                    color: Color(0xFF201F34),
+                  ),
+                ),
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  controller: controller2,
+                  style: TextStyle(color: Colors.white), // Color del texto
+                ),
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
+        ),
       ],
     );
   }
