@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -11,6 +13,8 @@ class RegisterScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController repeatPasswordController = TextEditingController();
 
+  RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,40 +26,40 @@ class RegisterScreen extends StatelessWidget {
             children: [
               TextField(
                 controller: emailController,
-                decoration: InputDecoration(labelText: 'Correo Electrónico'),
+                decoration: const InputDecoration(labelText: 'Correo Electrónico'),
               ),
               TextField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: const InputDecoration(labelText: 'Nombre'),
               ),
               TextField(
                 controller: lastNameController,
-                decoration: InputDecoration(labelText: 'Apellido'),
+                decoration: const InputDecoration(labelText: 'Apellido'),
               ),
               TextField(
                 controller: addressController,
-                decoration: InputDecoration(labelText: 'Dirección'),
+                decoration: const InputDecoration(labelText: 'Dirección'),
               ),
               TextField(
                 controller: departmentController,
-                decoration: InputDecoration(labelText: 'Departamento'),
+                decoration: const InputDecoration(labelText: 'Departamento'),
               ),
               TextField(
                 controller: districtController,
-                decoration: InputDecoration(labelText: 'Distrito'),
+                decoration: const InputDecoration(labelText: 'Distrito'),
               ),
               TextField(
                 controller: numberController,
-                decoration: InputDecoration(labelText: 'Número de Teléfono'),
+                decoration: const InputDecoration(labelText: 'Número de Teléfono'),
               ),
               TextField(
                 controller: passwordController,
-                decoration: InputDecoration(labelText: 'Contraseña'),
+                decoration: const InputDecoration(labelText: 'Contraseña'),
                 obscureText: true, // Para ocultar la contraseña
               ),
               TextField(
                 controller: repeatPasswordController,
-                decoration: InputDecoration(labelText: 'Repetir Contraseña'),
+                decoration: const InputDecoration(labelText: 'Repetir Contraseña'),
                 obscureText: true, // Para ocultar la contraseña
               ),
               ElevatedButton(
@@ -72,7 +76,7 @@ class RegisterScreen extends StatelessWidget {
                   final repeatPassword = repeatPasswordController.text;
                   // Agregar aquí la lógica de registro
                 },
-                child: Text('Registrarse'),
+                child: const Text('Registrarse'),
               ),
             ],
           ),
