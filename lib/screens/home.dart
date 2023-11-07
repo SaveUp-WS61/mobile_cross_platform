@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("type_of_user");
+                    Navigator.of(context).pushNamed("register");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí
