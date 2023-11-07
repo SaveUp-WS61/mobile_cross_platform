@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'SuccessScreen.dart'; // Importa el archivo donde se encuentra SuccessScreen
 import 'perfil_screen.dart';
 
 class EditarPerfil extends StatefulWidget {
@@ -62,29 +63,17 @@ class _EditarPerfilState extends State<EditarPerfil> {
       // Los datos se han actualizado correctamente
 
       // Muestra el diálogo de "Guardado con éxito"
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Guardado con éxito"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                  size: 48,
-                ),
-                SizedBox(height: 16),
-                Text("Los cambios se guardaron exitosamente."),
-              ],
-            ),
-          );
-        },
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return SuccessScreen();
+          },
+        ),
       );
 
+
       // Espera 4 segundos y luego cierra el diálogo
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 4));
 
       Navigator.of(context).pop(); // Cierra el diálogo
       Navigator.of(context).pop();
@@ -135,9 +124,24 @@ class _EditarPerfilState extends State<EditarPerfil> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
-        TextField(controller: controller),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 50),
+          decoration: BoxDecoration(
+            color: Color(0xFF201F34), // Color de fondo
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            border: Border.all(
+              color: Color(0xFF201F34),
+            ),
+          ),
+          child: TextField(
+            textAlign: TextAlign.center,
+            controller: controller,
+            style: TextStyle(color: Colors.white), // Color del texto
+          ),
+        ),
         SizedBox(height: 16),
       ],
     );
   }
+
 }
