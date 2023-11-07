@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saveup/providers/chat_provider.dart';
 import 'package:saveup/screens/add_card_screen.dart';
+import 'package:saveup/screens/add_product_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
@@ -56,7 +57,9 @@ class MainApp extends StatelessWidget {
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
           "recover_password":(context) => RecoverPasswordScreen(),
-          "register":(context) => RegisterScreen(),
+          "register": (context) => RegisterScreen(),
+          "company_products": (context) => ProductsScreen(),
+          "add_product": (context) => const AddProductScreen(),
         },
       ),
     );
