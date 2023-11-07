@@ -1,0 +1,4 @@
+#Mon Nov 06 21:28:36 PET 2023
+base.0=C\:\\Users\\USER\\Desktop\\CODIGO FINAL MOVILES\\moviles_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
