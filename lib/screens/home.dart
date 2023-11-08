@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("type_of_user");
+                    Navigator.of(context).pushReplacementNamed("type_of_user");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("recover_password");
+                    Navigator.of(context).pushReplacementNamed("recover_password");
                   },
                   child: Text('¿Olvidó su Contraseña?',
                     style:TextStyle(color: Colors.black),),
