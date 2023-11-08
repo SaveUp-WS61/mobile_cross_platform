@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'SuccessScreen.dart'; // Importa el archivo donde se encuentra SuccessScreen
 import 'EditarTarjetaScreen.dart'; // Importa el archivo donde se encuentra EditarTarjetaScreen
-import 'perfil_screen.dart';
 
 class EditarPerfil extends StatefulWidget {
   final Map<String, dynamic> userData;

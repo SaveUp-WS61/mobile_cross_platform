@@ -21,7 +21,6 @@ import 'package:saveup/screens/save_publication_product.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 import 'package:saveup/screens/perfil_screen.dart';
-import 'package:saveup/screens/editar_perfil.dart';
 
 void main() {
   runApp(const MainApp());
@@ -65,8 +64,8 @@ class MainApp extends StatelessWidget {
           "register": (context) => TipoDeUsuario(),
           "company_products": (context) => ProductsScreen(),
           "add_product": (context) => const AddProductScreen(),
-          "edit_publication": (context) => EditPublicationProduct(),
-          "save_publication": (context) => SavePublicationProduct(),
+          "edit_publication": (context) => const EditPublicationProduct(),
+          "save_publication": (context) => const SavePublicationProduct(),
           "deleted_post": (context) => const DeletedPostScreen(),
           "history_sales":(context) => const HistorySalesScreen(),
           "home": (context) => HomeScreen(),
