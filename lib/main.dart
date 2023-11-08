@@ -61,8 +61,6 @@ class MainApp extends StatelessWidget {
           "register": (context) => RegisterScreen(),
           "company_products": (context) => ProductsScreen(),
           "add_product": (context) => const AddProductScreen(),
-          "recover_password": (context) => RecoverPasswordScreen(),
-          "register": (context) => RegisterScreen(),
           "edit_publication": (context) => EditPublicationProduct(),
           "save_publication": (context) => SavePublicationProduct(),
         },
