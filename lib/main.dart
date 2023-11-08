@@ -10,6 +10,7 @@ import 'package:saveup/screens/edit_publication_product.dart';
 import 'package:saveup/screens/deleted_post_screen.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
 import 'package:saveup/screens/history_sales_screen.dart';
+import 'package:saveup/screens/home_screen.dart';
 import 'package:saveup/screens/login_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
 import 'package:saveup/screens/products_screen.dart';
@@ -59,13 +60,14 @@ class MainApp extends StatelessWidget {
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
           "recover_password":(context) => RecoverPasswordScreen(),
-          "register": (context) => RegisterScreen(),
+          "register": (context) => TipoDeUsuario(),
           "company_products": (context) => ProductsScreen(),
           "add_product": (context) => const AddProductScreen(),
           "edit_publication": (context) => EditPublicationProduct(),
           "save_publication": (context) => SavePublicationProduct(),
           "deleted_post": (context) => const DeletedPostScreen(),
           "history_sales":(context) => const HistorySalesScreen(),
+          "home": (context) => HomeScreen(),
         },
       ),
     );

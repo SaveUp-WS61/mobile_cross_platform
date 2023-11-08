@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navegar a la pantalla de inicio después de 2100 milisegundos
     Future.delayed(const Duration(milliseconds: 2100), () {
-      Navigator.of(context).pushReplacementNamed("login");
+      Navigator.of(context).pushReplacementNamed("home");
     });
   }
 

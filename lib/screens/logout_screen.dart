@@ -46,7 +46,7 @@ class LogoutScreen extends StatelessWidget {
                             height: 0,
                           ),
                         ),
-                        onPressed: () { Navigator.of(context).pushReplacementNamed("products"); },
+                        onPressed: () { Navigator.of(context).pushReplacementNamed("login"); },
                       ),
                       const SizedBox(width: 30),
                       MaterialButton(
