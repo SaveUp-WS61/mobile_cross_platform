@@ -56,7 +56,7 @@ class MainApp extends StatelessWidget {
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
           "recover_password":(context) => RecoverPasswordScreen(),
-          "register":(context) => TipoDeUsuario(),
+          "register":(context) => RegisterScreen(),
           "home":(context)=>HomeScreen(),
         },
       ),
