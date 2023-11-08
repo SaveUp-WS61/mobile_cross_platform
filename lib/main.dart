@@ -7,7 +7,9 @@ import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
 import 'package:saveup/screens/edit_publication_product.dart';
+import 'package:saveup/screens/deleted_post_screen.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
+import 'package:saveup/screens/history_sales_screen.dart';
 import 'package:saveup/screens/login_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
 import 'package:saveup/screens/products_screen.dart';
@@ -48,8 +50,7 @@ class MainApp extends StatelessWidget {
           "splash": (context) => const SplashScreen(),
           "products": (context) => ProductsScreen(),
           "logout": (context) => const LogoutScreen(),
-          "purchase_confirmation": (context) =>
-              const PurchaseConfirmationScreen(),
+          "purchase_confirmation": (context) => const PurchaseConfirmationScreen(),
           "history_buys": (context) => const HistoryBuysScreen(),
           "bot_chat": (context) => const BotChatScreen(),
           "add_card": (context) => const AddCardScreen(),
@@ -63,6 +64,8 @@ class MainApp extends StatelessWidget {
           "add_product": (context) => const AddProductScreen(),
           "edit_publication": (context) => EditPublicationProduct(),
           "save_publication": (context) => SavePublicationProduct(),
+          "deleted_post": (context) => const DeletedPostScreen(),
+          "history_sales":(context) => const HistorySalesScreen(),
         },
       ),
     );
