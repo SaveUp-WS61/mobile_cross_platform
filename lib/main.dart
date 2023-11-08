@@ -20,6 +20,8 @@ import 'package:saveup/screens/register_screen.dart';
 import 'package:saveup/screens/save_publication_product.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
+import 'package:saveup/screens/perfil_screen.dart';
+import 'package:saveup/screens/editar_perfil.dart';
 
 void main() {
   runApp(const MainApp());
@@ -68,6 +70,7 @@ class MainApp extends StatelessWidget {
           "deleted_post": (context) => const DeletedPostScreen(),
           "history_sales":(context) => const HistorySalesScreen(),
           "home": (context) => HomeScreen(),
+          "profile":(context) => PerfilComprador(),
         },
       ),
     );

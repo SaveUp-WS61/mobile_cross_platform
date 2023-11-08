@@ -41,9 +41,8 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Perfil"),
-            onTap: () {
-              print("Perfil");
-            },
+            onTap: () { Navigator.of(context).pushNamed("profile"); },
+
           ),
           ListTile(
             leading: Icon(Icons.history),
