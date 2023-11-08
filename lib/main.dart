@@ -5,7 +5,9 @@ import 'package:saveup/screens/add_card_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
+import 'package:saveup/screens/deleted_post_screen.dart';
 import 'package:saveup/screens/history_buys_screen.dart';
+import 'package:saveup/screens/history_sales_screen.dart';
 import 'package:saveup/screens/login_screen.dart';
 import 'package:saveup/screens/logout_screen.dart';
 import 'package:saveup/screens/products_screen.dart';
@@ -55,8 +57,10 @@ class MainApp extends StatelessWidget {
           "checkout": (context) => const CheckoutScreen(),
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
-          "recover_password":(context) => RecoverPasswordScreen(),
-          "register":(context) => RegisterScreen(),
+          "recover_password": (context) => RecoverPasswordScreen(),
+          "register": (context) => RegisterScreen(),
+          "deleted_post": (context) => const DeletedPostScreen(),
+          "history_sales":(context) => const HistorySalesScreen(),
         },
       ),
     );
