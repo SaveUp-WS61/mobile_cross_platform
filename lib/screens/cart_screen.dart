@@ -18,7 +18,7 @@ class CartScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -30,15 +30,15 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Resumen de la orden',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Text('Envío a domicilio'),
                   Text('Departamento: Lima'),
                   Text('Distrito: San Miguel'),
@@ -68,32 +68,60 @@ class CardTotal extends StatelessWidget {
     return IntrinsicHeight(
       child: Card(
         color: Color(0xFF201F34),
-        margin: EdgeInsets.all(16),
+        margin: EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
         child: Column(
           children: [
-            ListTile(
-              title: Text('Productos (#):', style: colorText),
-              subtitle: Text('S/ 700', style: colorText),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('Productos (#):', style: colorText),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('S/ 700', style: colorText),
+                ),
+              ],
             ),
-            ListTile(
-              title: Text('Total:', style: colorText),
-              subtitle: Text('S/ 100.00', style: colorText),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('Total:', style: colorText),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('S/ 100.00', style: colorText),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ElevatedButton(
-                style: colorButton,
-                onPressed: () { Navigator.of(context).pushNamed("checkout"); },
-                child: Text('Continuar compra', style: colorButtonText),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ElevatedButton(
-                style: colorButton,
-                onPressed: () {},
-                child: Text('Eliminar orden', style: colorButtonText),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: colorButton,
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("checkout");
+                    },
+                    child: Text('Continuar compra', style: colorButtonText),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: colorButton,
+                    onPressed: () {},
+                    child: Text('Eliminar orden', style: colorButtonText),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -130,17 +158,24 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Color(0xFF201F34),
+      margin: EdgeInsets.all(20),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       child: Column(
         children: [
           ListTile(
             leading: SizedBox(
-              height: 150.0,
-              width: 70.0,
+              height: 170.0,
+              width: 80.0,
               child: Image.asset(productImage),
             ),
-            title: Text(
-              productName,
-              style: colorText,
+            title: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                productName,
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
