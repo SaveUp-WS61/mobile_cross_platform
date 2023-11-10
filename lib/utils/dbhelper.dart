@@ -49,7 +49,6 @@ class DbHelper {
 
     return List.generate(maps.length, (i){
       return User(
-        maps[i]['id'],
         maps[i]['tableId'],
         maps[i]['type']
       );
@@ -61,7 +60,6 @@ class DbHelper {
 
     return List.generate(maps.length, (i){
       return Cart(
-        maps[i]['id'],
         maps[i]['productId'],
         maps[i]['quantity']
       );

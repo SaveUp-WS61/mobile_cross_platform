@@ -25,10 +25,15 @@ import 'package:saveup/screens/save_publication_product.dart';
 import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 import 'package:saveup/screens/perfil_screen.dart';
+import 'package:saveup/utils/dbhelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Llama a openDb para abrir la base de datos antes de ejecutar la aplicación
+  final dbHelper = DbHelper();
+  await dbHelper.openDb(); // Abre la base de datos
   
   runApp(const MainApp());
 }

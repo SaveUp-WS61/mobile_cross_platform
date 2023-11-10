@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/utils/dbhelper.dart';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
@@ -46,7 +47,14 @@ class LogoutScreen extends StatelessWidget {
                             height: 0,
                           ),
                         ),
-                        onPressed: () { Navigator.of(context).pushReplacementNamed("login"); },
+                        onPressed: () async {
+                          // Eliminar todos los datos de la tabla "user"
+                          final dbHelper = DbHelper();
+                          await dbHelper.deleteAllUsers();
+
+                          // Redirigir a la pantalla de login
+                          Navigator.of(context).pushReplacementNamed("login");
+                        },
                       ),
                       const SizedBox(width: 30),
                       MaterialButton(

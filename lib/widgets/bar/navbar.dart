@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/utils/dbhelper.dart';
 
 class Navbar extends StatelessWidget {
   const Navbar({super.key});
@@ -41,8 +42,19 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Perfil"),
-            onTap: () { Navigator.of(context).pushNamed("profile"); },
+            onTap: () async {
+              final users = await DbHelper().getUsers();
 
+              if(users[0] != null) {
+                final userType = users[0].type;
+
+                if (userType == 'customer') {
+                  Navigator.of(context).pushNamed("profile");
+                } else if (userType == 'company') {
+                  Navigator.of(context).pushNamed("company_profile");
+                }
+              }
+            },
           ),
           ListTile(
             leading: Icon(Icons.history),
