@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/widgets/bar/company_toolbar.dart';
 import 'package:saveup/widgets/bar/navbar.dart';
-import 'package:saveup/widgets/bar/toolbar.dart';
 
 class Product {
   final String nombre;
@@ -70,7 +70,7 @@ class CompanyProductsScreen extends StatelessWidget {
       drawer: Navbar(),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Toolbar(),
+        child: CompanyToolbar(),
       ),
       body: Stack(
         children: [
@@ -111,6 +111,10 @@ class CompanyProductsScreen extends StatelessWidget {
                               Text(
                                 'Stock: ${product.stock}',
                                 textAlign: TextAlign.center,
+                              ),
+                              IconButton(
+                                onPressed: (){ Navigator.of(context).pushNamed("edit_publication"); },
+                                icon: const Icon(Icons.edit)
                               ),
                             ],
                           ),

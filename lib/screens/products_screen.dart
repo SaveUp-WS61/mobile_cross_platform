@@ -110,6 +110,7 @@ class ProductsScreen extends StatelessWidget {
                               'Stock: ${product.stock}',
                               textAlign: TextAlign.center,
                             ),
+                            IconButton(onPressed: (){}, icon: const Icon(Icons.add_shopping_cart))
                           ],
                         ),
                       ),

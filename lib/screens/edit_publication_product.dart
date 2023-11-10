@@ -80,6 +80,7 @@ class EditPublicationPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Lógica
+                  Navigator.of(context).pushReplacementNamed("deleted_post");
                 },
                 child: Text(
                   'Eliminar',

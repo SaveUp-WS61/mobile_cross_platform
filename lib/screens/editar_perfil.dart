@@ -76,7 +76,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
       await Future.delayed(Duration(seconds: 4));
 
       Navigator.of(context).pop(); // Cierra el diálogo
-      Navigator.of(context).pop();
     } else {
       // Manejar errores aquí
       final errorMessage = response.body;

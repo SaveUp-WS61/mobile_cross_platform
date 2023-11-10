@@ -38,6 +38,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void onSubmit() {
     // Implement form submission logic here
+    Navigator.of(context).pushReplacementNamed("company_products");
   }
 
   @override
