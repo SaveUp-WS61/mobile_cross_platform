@@ -5,11 +5,6 @@ class SuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Perfil de Comprador"),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF67C5C8),
-      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -8,6 +8,7 @@ import 'package:saveup/screens/add_product_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
 import 'package:saveup/screens/cart_screen.dart';
 import 'package:saveup/screens/checkout_screen.dart';
+import 'package:saveup/screens/company_perfil_screen.dart';
 import 'package:saveup/screens/company_products_screen.dart';
 import 'package:saveup/screens/edit_publication_product.dart';
 import 'package:saveup/screens/deleted_post_screen.dart';
@@ -76,6 +77,7 @@ class MainApp extends StatelessWidget {
           "history_sales":(context) => const HistorySalesScreen(),
           "home": (context) => HomeScreen(),
           "profile":(context) => PerfilComprador(),
+          "company_profile":(context) => PerfilCompania(),
         },
       ),
     );
