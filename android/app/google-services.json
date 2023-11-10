@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "930813567969",
+    "project_id": "saveup-5e005",
+    "storage_bucket": "saveup-5e005.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930813567969:android:9e9da5c714bb3a559428a0",
+        "android_client_info": {
+          "package_name": "com.example.saveup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbhethrTKV2JflI0gXzbFCJnMuUprVNsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

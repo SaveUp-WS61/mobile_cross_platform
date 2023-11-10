@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saveup/firebase_options.dart';
 import 'package:saveup/providers/chat_provider.dart';
 import 'package:saveup/screens/add_card_screen.dart';
 import 'package:saveup/screens/add_product_screen.dart';
@@ -23,7 +25,10 @@ import 'package:saveup/screens/search_products_screen.dart';
 import 'package:saveup/screens/splash_screen.dart';
 import 'package:saveup/screens/perfil_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   runApp(const MainApp());
 }
 

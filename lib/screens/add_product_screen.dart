@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -32,13 +34,45 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
   }
 
+  Future<void> _uploadImageToFirebase() async {
+    if (_selectedImage == null) return;
+
+    try {
+      final String fileName = basename(_selectedImage!.path);
+      final Reference storageReference =
+          FirebaseStorage.instance.ref().child('images/$fileName');
+      final UploadTask uploadTask = storageReference.putFile(File(_selectedImage!.path));
+
+      await uploadTask.whenComplete(() async {
+        // Obtener la URL de la imagen después de subirla
+        final imageUrl = await storageReference.getDownloadURL();
+        print('Imagen subida a Firebase: $imageUrl');
+      });
+    } catch (error) {
+      print('Error al subir la imagen: $error');
+    }
+  }
+
   String getImageName() {
     return _imageName;
   }
 
-  void onSubmit() {
-    // Implement form submission logic here
-    Navigator.of(context).pushReplacementNamed("company_products");
+  void onSubmit() async {
+    // Subir la imagen a Firebase antes de realizar otras acciones
+    await _uploadImageToFirebase();
+
+    // Implementar lógica de envío del formulario aquí
+    // ...
+
+    // Limpiar campos después de enviar el formulario
+    _nameController.clear();
+    _descriptionController.clear();
+    _priceController.clear();
+    _stockController.clear();
+    _expirationDateController.clear();
+    setState(() {
+      _selectedImage = null;
+    });
   }
 
   @override

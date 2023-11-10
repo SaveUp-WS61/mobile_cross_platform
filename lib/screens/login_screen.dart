@@ -58,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                     final email = emailController.text;
                     final password = passwordController.text;
                     // Agregar aquí la lógica de autenticación
-                    Navigator.of(context).pushReplacementNamed("products");
+                    Navigator.of(context).pushReplacementNamed("company_products");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí
