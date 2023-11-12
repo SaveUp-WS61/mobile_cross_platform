@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("login");
+                    Navigator.of(context).pushNamed("login");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("register");
+                    Navigator.of(context).pushNamed("register");
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí

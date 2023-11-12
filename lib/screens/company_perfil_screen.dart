@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:saveup/screens/company_editar_perfil.dart'; // Importa el archivo donde se encuentra EditarPerfil
+import 'package:saveup/screens/company_editar_perfil.dart';
+import 'package:saveup/utils/dbhelper.dart'; // Importa el archivo donde se encuentra EditarPerfil
 
 void company_perfil_screen() {
     runApp(MyApp());
@@ -23,15 +24,20 @@ class _PerfilCompaniaState extends State<PerfilCompania> {
   }
 
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse(
-        'https://saveup-production.up.railway.app/api/saveup/v1/companies'));
+    final users = await DbHelper().getUsers();
+    final response = await http.get(Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/companies'));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body)[0];
-      setState(() {
-        userData = data;
-        hiddenPassword = '*' * userData['password'].length;
-      });
+      final data = json.decode(response.body);
+      for(var company in data) {
+        if(company['id'] == users[0].tableId) {
+          setState(() {
+            userData = company;
+            hiddenPassword = '*' * userData['password'].length;
+          });
+          break;
+        }
+      }
     }
   }
 

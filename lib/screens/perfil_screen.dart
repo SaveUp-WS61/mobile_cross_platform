@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:saveup/utils/dbhelper.dart';
 import 'editar_perfil.dart'; // Importa el archivo donde se encuentra EditarPerfil
 
 void perfil_screen() {
@@ -23,11 +24,12 @@ class _PerfilCompradorState extends State<PerfilComprador> {
   }
 
   Future<void> fetchData() async {
+    final userAccount = await DbHelper().getUsers();
     final response = await http.get(Uri.parse(
-        'https://saveup-production.up.railway.app/api/saveup/v1/customers'));
+        'https://saveup-production.up.railway.app/api/saveup/v1/customers/${userAccount[0].tableId}'));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body)[0];
+      final data = json.decode(response.body);
       setState(() {
         userData = data;
         hiddenPassword = '*' * userData['password'].length;
@@ -61,8 +63,7 @@ class _PerfilCompradorState extends State<PerfilComprador> {
                 _buildInfoRow("Distrito", userData['district']??'Sin nombre'),
                 _buildInfoRow("Dirección", userData['address']??'Sin nombre'),
                 _buildInfoRow("Celular", userData['phoneNumber']??'Sin nombre'),
-                _buildInfoRow("Contraseña", hiddenPassword),
-                _buildInfoRow("Número de tarjeta", userData['cards'] != null && userData['cards'].isNotEmpty ? userData['cards'][0] : 'N/A'),
+                _buildInfoRow("Contraseña", hiddenPassword)
               ],
             ),
           ),

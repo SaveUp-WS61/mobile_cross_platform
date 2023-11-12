@@ -1,17 +1,53 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:saveup/utils/dbhelper.dart';
+import 'package:http/http.dart' as http;
+
 
 class Navbar extends StatelessWidget {
-  const Navbar({super.key});
+
+  String userType = '';
+  Map<String, dynamic> userData = {};
+
+  Future<void> loadUser() async {
+    final users = await DbHelper().getUsers();
+    final userAccount = users[0];
+
+    userType = userAccount.type;
+    if(userType=='customer') {
+      final response = await http.get(Uri.parse(
+        'https://saveup-production.up.railway.app/api/saveup/v1/customers/${userAccount.tableId}'));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        userData = data;
+      }
+    }
+    else if(userType=='company') {
+      final response = await http.get(Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/companies'));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        for(var company in data) {
+          if(company['id'] == users[0].tableId) {
+            userData = company;
+            break;
+          }
+        }
+      }
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    loadUser();
     return Drawer(
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text("Marzzio Chicana"),
-            accountEmail: const Text("marzzio@gmail.com"),
+            accountName: Text(userData['name']??'Sin nombre'),
+            accountEmail: Text(userData['email']??'Sin correo'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Transform.scale(
@@ -28,8 +64,18 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text("Pagina principal"),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed("products");
+            onTap: () async {
+              final users = await DbHelper().getUsers();
+
+              if(users[0] != null) {
+                final userType = users[0].type;
+
+                if (userType == 'customer') {
+                  Navigator.of(context).pushNamed("products");
+                } else if (userType == 'company') {
+                  Navigator.of(context).pushNamed("company_products");
+                }
+              }
             },
           ),
           ListTile(
