@@ -74,15 +74,13 @@ class _EditarPerfilCompaniaState extends State<EditarPerfilCompania> {
       // Espera 4 segundos y luego cierra el diálogo
       await Future.delayed(Duration(seconds: 4));
 
-      Navigator.of(context).pop(); // Cierra el diálogo
+      Navigator.of(context).pushReplacementNamed("company_profile"); // Cierra el diálogo
     } else {
       // Manejar errores aquí
       final errorMessage = response.body;
       print("Error al actualizar los datos: $errorMessage");
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {

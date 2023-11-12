@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-Color myCustomColor = Color(0xFFE95D5D);
+Color myCustomColor = const Color.fromARGB(255, 103, 197, 200);
 // Define el widget de TextFormField reutilizable
 Widget buildFormTextField(TextEditingController controller, String labelText, {bool isPassword = false}) {
   return Padding(
@@ -54,9 +55,32 @@ class RecoverPasswordScreen extends StatelessWidget {
                 buildFormTextField(emailController, 'Correo Electrónico'),
                 SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {
-                    // Lógica para recuperar contraseña
-                    // Agregar aquí la lógica para la recuperación de contraseña
+                  onPressed: () async {
+                    // Validar que el input no esté vacío
+                    if (emailController.text.isNotEmpty) {
+                      try {
+                        await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: emailController.text);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Correo electrónico de restablecimiento enviado'),
+                          )
+                        );
+
+                        // Redirigir a la pantalla de login
+                        Navigator.of(context).pushReplacementNamed("login");
+                        
+                      } on FirebaseAuthException catch (e) {
+                        print(e);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(e.message ?? 'Error al enviar el correo electrónico de restablecimiento'),
+                          )
+                        );
+                      }
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myCustomColor, // Utiliza tu color personalizado aquí

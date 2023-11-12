@@ -32,15 +32,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navegar a la pantalla de inicio después de 2100 milisegundos
     Future.delayed(const Duration(milliseconds: 2100), () async {
-      final users = await DbHelper().getUsers();
+      final accounts = await DbHelper().getAccounts();
 
-      if(users.isEmpty) {
+      if(accounts.isEmpty) {
         Navigator.of(context).pushReplacementNamed("home");
       }
-      else if(users[0].type == "customer") {
+      else if(accounts[0].type == "customer") {
         Navigator.of(context).pushReplacementNamed("products");
       }
-      else if(users[0].type == "company") {
+      else if(accounts[0].type == "company") {
         Navigator.of(context).pushReplacementNamed("company_products");
       }
     });

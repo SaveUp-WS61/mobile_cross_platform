@@ -1,53 +1,41 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:saveup/models/account.dart';
 import 'package:saveup/utils/dbhelper.dart';
-import 'package:http/http.dart' as http;
 
+class Navbar extends StatefulWidget {
+  const Navbar({super.key});
 
-class Navbar extends StatelessWidget {
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
 
-  String userType = '';
-  Map<String, dynamic> userData = {};
+class _NavbarState extends State<Navbar> {
+  String accountType = '';
+  Map<String, dynamic> accountData = {};
 
-  Future<void> loadUser() async {
-    final users = await DbHelper().getUsers();
-    final userAccount = users[0];
+  @override
+  void initState() {
+    super.initState();
+    loadAccount();
+  }
 
-    userType = userAccount.type;
-    if(userType=='customer') {
-      final response = await http.get(Uri.parse(
-        'https://saveup-production.up.railway.app/api/saveup/v1/customers/${userAccount.tableId}'));
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        userData = data;
-      }
-    }
-    else if(userType=='company') {
-      final response = await http.get(Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/companies'));
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        for(var company in data) {
-          if(company['id'] == users[0].tableId) {
-            userData = company;
-            break;
-          }
-        }
-      }
-    }
+  Future<void> loadAccount() async {
+    final accounts = await DbHelper().getAccounts();
+    final account = accounts[0];
+    setState(() {
+      accountData = account.toMap();
+      accountType = accountData['type'];
+    });
   }
 
   @override
-  Widget build(BuildContext context){
-    loadUser();
+  Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(userData['name']??'Sin nombre'),
-            accountEmail: Text(userData['email']??'Sin correo'),
+            accountName: Text(accountData['name']??'Sin nombre'),
+            accountEmail: Text(accountData['email']??'Sin correo'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Transform.scale(
@@ -65,14 +53,12 @@ class Navbar extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text("Pagina principal"),
             onTap: () async {
-              final users = await DbHelper().getUsers();
+              final accounts = await DbHelper().getAccounts();
 
-              if(users[0] != null) {
-                final userType = users[0].type;
-
-                if (userType == 'customer') {
+              if(accountData != null) {
+                if (accountType == 'customer') {
                   Navigator.of(context).pushNamed("products");
-                } else if (userType == 'company') {
+                } else if (accountType == 'company') {
                   Navigator.of(context).pushNamed("company_products");
                 }
               }
@@ -89,14 +75,12 @@ class Navbar extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text("Perfil"),
             onTap: () async {
-              final users = await DbHelper().getUsers();
+              final accounts = await DbHelper().getAccounts();
 
-              if(users[0] != null) {
-                final userType = users[0].type;
-
-                if (userType == 'customer') {
+              if(accountData != null) {
+                if (accountType == 'customer') {
                   Navigator.of(context).pushNamed("profile");
-                } else if (userType == 'company') {
+                } else if (accountType == 'company') {
                   Navigator.of(context).pushNamed("company_profile");
                 }
               }

@@ -1,5 +1,5 @@
 import 'package:saveup/models/cart.dart';
-import 'package:saveup/models/user.dart';
+import 'package:saveup/models/account.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -19,7 +19,7 @@ class DbHelper {
     'saveup.db'),
     onCreate: (database, version) {
       // Tablas
-      database.execute('CREATE TABLE user(id INTEGER PRIMARY KEY, tableId INTEGER, type TEXT)');
+      database.execute('CREATE TABLE account(id INTEGER PRIMARY KEY, tableId INTEGER, email TEXT, name TEXT, address TEXT, department TEXT, district TEXT, phoneNumber TEXT, password TEXT, repeatPassword TEXT, lastName TEXT, ruc TEXT, points INTEGER, type TEXT)');
 
       database.execute('CREATE TABLE cart(id INTEGER PRIMARY KEY, productId INTEGER, quantity INTEGER)');
     }, version: version);
@@ -28,9 +28,9 @@ class DbHelper {
   }
 
   // Metodos crud
-  Future<int> insertUser(User user) async {
+  Future<int> insertAccount(Account account) async {
     int id = await this.dbSaveup!.insert(
-      'user', user.toMap(), 
+      'account', account.toMap(), 
       conflictAlgorithm: ConflictAlgorithm.replace); // Si hay un conflicto (si el registro existe), lo reemplaza
 
     return id;
@@ -44,12 +44,23 @@ class DbHelper {
     return id;
   }
 
-  Future<List<User>> getUsers() async {
-    final List<Map<String, dynamic>> maps = await dbSaveup!.query('user');
+  Future<List<Account>> getAccounts() async {
+    final List<Map<String, dynamic>> maps = await dbSaveup!.query('account');
 
     return List.generate(maps.length, (i){
-      return User(
+      return Account(
         maps[i]['tableId'],
+        maps[i]['email'],
+        maps[i]['name'],
+        maps[i]['address'],
+        maps[i]['department'],
+        maps[i]['district'],
+        maps[i]['phoneNumber'],
+        maps[i]['password'],
+        maps[i]['repeatPassword'],
+        maps[i]['lastName'],
+        maps[i]['ruc'],
+        maps[i]['points'],
         maps[i]['type']
       );
     });
@@ -64,6 +75,19 @@ class DbHelper {
         maps[i]['quantity']
       );
     });
+  }
+
+  Future<void> updateUserPasswordAndRepeatPassword(int userId, String newPassword, String newRepeatPassword) async {
+    final db = await openDb();
+    await db.update(
+      'account',
+      {
+        'password': newPassword,
+        'repeatPassword': newRepeatPassword,
+      },
+      where: 'id = ?',
+      whereArgs: [userId],
+    );
   }
 
   Future<void> updateCartItemByProductId(Cart cart) async {
@@ -90,8 +114,8 @@ class DbHelper {
     await db.delete('cart');
   }
 
-  Future<void> deleteAllUsers() async {
+  Future<void> deleteAllAccounts() async {
     final db = await openDb();
-    await db.delete('user');
+    await db.delete('account');
   }
 }

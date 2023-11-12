@@ -48,9 +48,9 @@ class LogoutScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          // Eliminar todos los datos de la tabla "user"
+                          // Eliminar todos los datos de la tabla "account"
                           final dbHelper = DbHelper();
-                          await dbHelper.deleteAllUsers();
+                          await dbHelper.deleteAllAccounts();
 
                           // Redirigir a la pantalla de login
                           Navigator.of(context).pushReplacementNamed("login");

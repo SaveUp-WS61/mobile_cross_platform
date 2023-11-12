@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Color myCustomColor = const Color.fromARGB(255, 103, 197, 200);
 // Define el widget de TextFormField reutilizable
@@ -233,6 +232,16 @@ class RegisterScreen extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Ya existe un usuario con el mismo correo'),
+                        ),
+                      );
+                      return;
+                    }
+
+                    // Validar que el numero telefonico tenga 9 digitos
+                    if (number.length != 9) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('El número de teléfono debe tener 9 dígitos'),
                         ),
                       );
                       return;

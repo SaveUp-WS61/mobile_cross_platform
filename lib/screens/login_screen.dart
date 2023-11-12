@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:saveup/models/user.dart';
+import 'package:saveup/models/account.dart';
 import 'package:saveup/utils/dbhelper.dart';
 
 Color myCustomColor = const Color.fromARGB(255, 103, 197, 200);
@@ -72,35 +73,64 @@ class LoginScreen extends StatelessWidget {
                     final companiesResponse = await http.get(Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/companies'));
                     final companiesData = json.decode(companiesResponse.body) as List;
 
-                    bool emailExists = false;
+                    try {
+                      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: email, password: password
+                      );
+
+                      User? user = userCredential.user;
+
+                      bool emailExists = false;
 
                     for (var customer in customersData) {
-                      if (customer['email'] == email && customer['password'] == password) {
+                      if (customer['email'] == email) {
                         emailExists = true;
                         type = 'customer';
-                        // Guardar los datos del usuario en la tabla "user"
-                        final user = User(
+                        // Guardar los datos del usuario en la tabla "account"
+                        final account = Account(
                           // Aquí asigna los datos del usuario según la estructura de la tabla
                           customer['id'],
+                          customer['email'],
+                          customer['name'],
+                          customer['address'],
+                          customer['department'],
+                          customer['district'],
+                          customer['phoneNumber'],
+                          customer['password'],
+                          customer['repeatPassword'],
+                          customer['lastName'],
+                          '',
+                          customer['points'],
                           'customer'
                         );
-                        await DbHelper().insertUser(user);
+                        await DbHelper().insertAccount(account);
                         break;
                       }
                     }
 
                     if (!emailExists) {
                       for (var company in companiesData) {
-                        if (company['email'] == email && company['password'] == password) {
+                        if (company['email'] == email) {
                           emailExists = true;
                           type = 'company';
-                          // Guardar los datos del usuario en la tabla "user"
-                          final user = User(
+                          // Guardar los datos del usuario en la tabla "account"
+                          final account = Account(
                             // Aquí asigna los datos del usuario según la estructura de la tabla
                             company['id'],
+                            company['email'],
+                            company['name'],
+                            company['address'],
+                            company['department'],
+                            company['district'],
+                            company['phoneNumber'],
+                            company['password'],
+                            company['repeatPassword'],
+                            '',
+                            company['ruc'],
+                            0,
                             'company'
                           );
-                          await DbHelper().insertUser(user);
+                          await DbHelper().insertAccount(account);
                           break;
                         }
                       }
@@ -114,8 +144,8 @@ class LoginScreen extends StatelessWidget {
                       else if (type == 'company') {
                         Navigator.of(context).pushReplacementNamed("company_products");
                       }
-                    } else {
-                      // El usuario no existe, muestra un mensaje de error en una alerta
+                    }
+                    } catch (e) {
                       final currentContext = context; // Captura el contexto actual
 
                       showDialog(
