@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'SuccessScreen.dart'; // Importa el archivo donde se encuentra SuccessScreen
+import 'package:saveup/utils/dbhelper.dart';
 import 'EditarTarjetaScreen.dart'; // Importa el archivo donde se encuentra EditarTarjetaScreen
 
 class EditarPerfil extends StatefulWidget {
@@ -22,9 +22,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
   late TextEditingController distritoController;
   late TextEditingController direccionController;
   late TextEditingController celularController;
-  late TextEditingController contrasenaController;
-
-
 
   @override
   void initState() {
@@ -37,13 +34,15 @@ class _EditarPerfilState extends State<EditarPerfil> {
     distritoController = TextEditingController(text: widget.userData['district']);
     direccionController = TextEditingController(text: widget.userData['address']);
     celularController = TextEditingController(text: widget.userData['phoneNumber']);
-    contrasenaController = TextEditingController(text: widget.userData['password']);
   }
 
   Future<void> _guardarCambios() async {
+    final accounts = await DbHelper().getAccounts();
+    final account = accounts[0];
+
     final response = await http.put(
       Uri.parse(
-          'https://saveup-production.up.railway.app/api/saveup/v1/customers/1'),
+          'https://saveup-production.up.railway.app/api/saveup/v1/customers/${account.tableId}'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
         'name': nombreController.text,
@@ -53,37 +52,33 @@ class _EditarPerfilState extends State<EditarPerfil> {
         'district': distritoController.text,
         'address': direccionController.text,
         'phoneNumber': celularController.text,
-        'password': contrasenaController.text,
-        'repeatPassword': contrasenaController.text,
+        'password': account.password,
+        'repeatPassword': account.repeatPassword,
         // Agrega la confirmación de contraseña
       }),
     );
 
     if (response.statusCode == 200) {
       // Los datos se han actualizado correctamente
+      account.name = nombreController.text;
+      account.lastName = apellidoController.text;
+      account.email = correoController.text;
+      account.department = departamentoController.text;
+      account.district = distritoController.text;
+      account.address = direccionController.text;
+      account.phoneNumber = celularController.text;
 
-      // Muestra el diálogo de "Guardado con éxito"
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return SuccessScreen();
-          },
-        ),
-      );
+      await DbHelper().updateAccount(account.id, account);
 
+      Navigator.popUntil(context, ModalRoute.withName('profile'));
 
-      // Espera 4 segundos y luego cierra el diálogo
-      await Future.delayed(Duration(seconds: 4));
-
-      Navigator.of(context).pushReplacementNamed("profile"); // Cierra el diálogo
+      Navigator.of(context).pushReplacementNamed("success"); // Cierra el diálogo
     } else {
       // Manejar errores aquí
       final errorMessage = response.body;
       print("Error al actualizar los datos: $errorMessage");
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +122,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
               _buildTextFieldPair("Departamento", departamentoController, "Distrito", distritoController),
               _buildTextField("Dirección", direccionController),
               _buildTextField("Celular", celularController),
-              _buildTextField("Contraseña", contrasenaController),
-              SizedBox(height: 16),
+              SizedBox(height: 100),
               Row(
                 children: [
                   Expanded(
@@ -182,8 +176,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
     );
   }
 
-
-
   Widget _buildTextField(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,14 +194,13 @@ class _EditarPerfilState extends State<EditarPerfil> {
             textAlign: TextAlign.center,
             controller: controller,
             style: TextStyle(color: Colors.white), // Color del texto
+            enabled: label != "Correo",
           ),
         ),
         SizedBox(height: 16),
       ],
     );
   }
-
-
 
   Widget _buildTextFieldPair(String label1, TextEditingController controller1, String label2, TextEditingController controller2) {
     return Row(
@@ -265,5 +256,4 @@ class _EditarPerfilState extends State<EditarPerfil> {
       ],
     );
   }
-
 }

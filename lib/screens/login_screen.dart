@@ -89,6 +89,7 @@ class LoginScreen extends StatelessWidget {
                         // Guardar los datos del usuario en la tabla "account"
                         final account = Account(
                           // Aquí asigna los datos del usuario según la estructura de la tabla
+                          0,
                           customer['id'],
                           customer['email'],
                           customer['name'],
@@ -115,6 +116,7 @@ class LoginScreen extends StatelessWidget {
                           type = 'company';
                           // Guardar los datos del usuario en la tabla "account"
                           final account = Account(
+                            0,
                             // Aquí asigna los datos del usuario según la estructura de la tabla
                             company['id'],
                             company['email'],

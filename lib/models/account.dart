@@ -1,5 +1,5 @@
 class Account {
-  late int id;
+  int id;
   int tableId;
   String email;
   String name;
@@ -15,6 +15,7 @@ class Account {
   String type;
 
   Account(
+    this.id,
     this.tableId,
     this.email,
     this.name,
@@ -32,6 +33,7 @@ class Account {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': (id == 0)? null : id,
       'tableId': tableId,
       'email': email,
       'name': name,

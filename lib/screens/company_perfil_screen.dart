@@ -9,7 +9,6 @@ class PerfilCompania extends StatefulWidget {
 
 class _PerfilCompaniaState extends State<PerfilCompania> {
   Map<String, dynamic> accountData = {};
-  String hiddenPassword = '';
 
   @override
   void initState() {
@@ -21,7 +20,6 @@ class _PerfilCompaniaState extends State<PerfilCompania> {
     final account = await DbHelper().getAccounts();
     setState(() {
       accountData = account[0].toMap();
-      hiddenPassword = '*' * accountData['password'].length;
     });
   }
 
@@ -50,7 +48,6 @@ class _PerfilCompaniaState extends State<PerfilCompania> {
             _buildInfoRow("Distrito", accountData['district']??'Sin nombre'),
             _buildInfoRow("Dirección", accountData['address']??'Sin nombre'),
             _buildInfoRow("Celular", accountData['phoneNumber']??'Sin nombre'),
-            _buildInfoRow("Contraseña", hiddenPassword),
           ],
         ),
       ),

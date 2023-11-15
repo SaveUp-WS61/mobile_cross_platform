@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saveup/firebase_options.dart';
 import 'package:saveup/providers/chat_provider.dart';
+import 'package:saveup/screens/SuccessScreen.dart';
 import 'package:saveup/screens/add_card_screen.dart';
 import 'package:saveup/screens/add_product_screen.dart';
 import 'package:saveup/screens/bot_chat_screen.dart';
@@ -83,6 +84,7 @@ class MainApp extends StatelessWidget {
           "home": (context) => HomeScreen(),
           "profile":(context) => PerfilComprador(),
           "company_profile":(context) => PerfilCompania(),
+          "success": (context) => const SuccessScreen(),
         },
       ),
     );

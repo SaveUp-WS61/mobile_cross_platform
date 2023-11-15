@@ -49,6 +49,7 @@ class DbHelper {
 
     return List.generate(maps.length, (i){
       return Account(
+        maps[i]['id'],
         maps[i]['tableId'],
         maps[i]['email'],
         maps[i]['name'],
@@ -71,11 +72,22 @@ class DbHelper {
 
     return List.generate(maps.length, (i){
       return Cart(
+        maps[i]['id'],
         maps[i]['productId'],
         maps[i]['quantity']
       );
     });
   }
+
+  Future<void> updateAccount(int accountId, Account updatedAccount) async {
+  final db = await openDb();
+  await db.update(
+    'account',
+    updatedAccount.toMap(),
+    where: 'id = ?',
+    whereArgs: [accountId],
+  );
+}
 
   Future<void> updateUserPasswordAndRepeatPassword(int userId, String newPassword, String newRepeatPassword) async {
     final db = await openDb();
