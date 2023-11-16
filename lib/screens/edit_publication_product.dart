@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/screens/company_products_screen.dart';
+import 'package:saveup/screens/save_publication_product.dart';
 import 'package:saveup/widgets/bar/navbar.dart';
 import 'package:saveup/widgets/bar/toolbar.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_storage/firebase_storage.dart';
 
 class EditPublicationProduct extends StatelessWidget {
-  const EditPublicationProduct({super.key});
+  final Product product;
+
+  const EditPublicationProduct({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +19,16 @@ class EditPublicationProduct extends StatelessWidget {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: Toolbar(),
       ),
-      body: EditPublicationPage(),
+      body: EditPublicationPage(product: product),
     );
   }
 }
 
 class EditPublicationPage extends StatelessWidget {
+  final Product product;
+
+  const EditPublicationPage({Key? key, required this.product}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -50,15 +60,15 @@ class EditPublicationPage extends StatelessWidget {
                 SizedBox(
                   height: 140.0,
                   width: 120.0,
-                  child: Image.asset('assets/coca_cola.jpg'),
+                  child: Image.network(product.imagen),
                 ),
                 SizedBox(height: 10),
-                _buildProductDetail("Nombre del producto", "Coca Cola"),
+                _buildProductDetail("Nombre del producto", product.nombre),
                 _buildProductDetail(
-                    "Descripción del producto", "Bebida gasificada"),
-                _buildProductDetail("Precio", "S/ 13.00"),
-                _buildProductDetail("Stock", "150"),
-                _buildProductDetail("Fecha de vencimiento", "17-02-2024"),
+                    "Descripción del producto", product.descripcion),
+                _buildProductDetail("Precio", "S/. ${product.precio.toStringAsFixed(2)}"),
+                _buildProductDetail("Stock", product.stock.toString()),
+                _buildProductDetail("Fecha de vencimiento", product.fechaVencimiento),
               ],
             ),
           ),
@@ -68,7 +78,11 @@ class EditPublicationPage extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
-                  // Lógica
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SavePublicationProduct(product: product),
+                    ),
+                  );
                 },
                 child: Text(
                   'Editar',
@@ -78,9 +92,29 @@ class EditPublicationPage extends StatelessWidget {
               ),
               SizedBox(width: 40), // Espacio
               ElevatedButton(
-                onPressed: () {
-                  // Lógica
-                  Navigator.of(context).pushReplacementNamed("deleted_post");
+                onPressed: () async {
+                  // Lógica para eliminar el producto y su imagen
+                  final storageRef = FirebaseStorage.instance.refFromURL(product.imagen);
+                  try {
+                    // Eliminar la imagen de Firebase Storage
+                    await storageRef.delete();
+                  } catch (e) {
+                    print('Error al eliminar la imagen de Firebase Storage: $e');
+                  }
+
+                  // Ahora, elimina el producto de la API
+                  final response = await http.delete(
+                    Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/products/${product.id}'),
+                  );
+
+                  if (response.statusCode == 200) {
+                    // Producto y su imagen eliminados exitosamente
+                    Navigator.of(context).pushReplacementNamed("deleted_post");
+                  } else {
+                    // Manejar el error de la solicitud
+                    print('Error al eliminar el producto. Código de estado: ${response.statusCode}');
+                    // Puedes mostrar un mensaje de error al usuario si lo deseas
+                  }
                 },
                 child: Text(
                   'Eliminar',

@@ -77,8 +77,6 @@ class MainApp extends StatelessWidget {
           "register": (context) => TipoDeUsuario(),
           "company_products": (context) => CompanyProductsScreen(),
           "add_product": (context) => const AddProductScreen(),
-          "edit_publication": (context) => const EditPublicationProduct(),
-          "save_publication": (context) => const SavePublicationProduct(),
           "deleted_post": (context) => const DeletedPostScreen(),
           "history_sales":(context) => const HistorySalesScreen(),
           "home": (context) => HomeScreen(),
