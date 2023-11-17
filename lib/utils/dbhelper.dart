@@ -112,6 +112,18 @@ class DbHelper {
     );
   }
 
+  // Función para aumentar en uno la cantidad del objeto Cart
+  Future<void> increaseQuantityInCart(int productId) async {
+    final db = await openDb();
+    await db.rawUpdate('UPDATE cart SET quantity = quantity + 1 WHERE productId = ?', [productId]);
+  }
+
+  // Función para reducir en uno la cantidad del objeto Cart
+  Future<void> decreaseQuantityInCart(int productId) async {
+    final db = await openDb();
+    await db.rawUpdate('UPDATE cart SET quantity = quantity - 1 WHERE productId = ?', [productId]);
+  }
+
   Future<void> deleteCartItemByProductId(int productId) async {
     final db = await openDb();
     await db.delete(
