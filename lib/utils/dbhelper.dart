@@ -80,14 +80,32 @@ class DbHelper {
   }
 
   Future<void> updateAccount(int accountId, Account updatedAccount) async {
-  final db = await openDb();
-  await db.update(
-    'account',
-    updatedAccount.toMap(),
-    where: 'id = ?',
-    whereArgs: [accountId],
-  );
-}
+    final db = await openDb();
+    await db.update(
+      'account',
+      updatedAccount.toMap(),
+      where: 'id = ?',
+      whereArgs: [accountId],
+    );
+  }
+
+  Future<Cart?> getCartByProductId(int productId) async {
+    final List<Map<String, dynamic>> maps = await dbSaveup!.query(
+      'cart',
+      where: 'productId = ?',
+      whereArgs: [productId],
+    );
+
+    if (maps.isNotEmpty) {
+      return Cart(
+        maps[0]['id'],
+        maps[0]['productId'],
+        maps[0]['quantity'],
+      );
+    } else {
+      return null;
+    }
+  }
 
   Future<void> updateUserPasswordAndRepeatPassword(int userId, String newPassword, String newRepeatPassword) async {
     final db = await openDb();
