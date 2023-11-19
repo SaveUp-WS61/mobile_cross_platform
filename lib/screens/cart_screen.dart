@@ -396,7 +396,7 @@ class ProductCard extends StatelessWidget {
                             print('Error al actualizar el stock: $error');
                           }
 
-                          onUpdate();
+                          await onUpdate();
                         },
                         icon: Icon(Icons.remove, color: Colors.white,),
                       ),
@@ -434,7 +434,7 @@ class ProductCard extends StatelessWidget {
                             }
                           }
 
-                          onUpdate();
+                          await onUpdate();
                         },
                         icon: Icon(Icons.add, color: Colors.white,),
                       ),
