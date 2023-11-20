@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:saveup/screens/checkout_screen.dart';
 import 'package:saveup/utils/dbhelper.dart';
 import 'package:saveup/widgets/bar/navbar.dart';
 import 'package:saveup/widgets/bar/toolbar.dart';
@@ -167,21 +168,52 @@ class CardTotal extends StatelessWidget {
   }
 
   FutureBuilder<double> buildTotalAmount() {
-  return FutureBuilder<double>(
-    future: totalAmount(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return CircularProgressIndicator();
-      } else if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
-      } else {
-        // Verifica si snapshot.data es nulo antes de acceder a toStringAsFixed(2)
-        final totalAmount = snapshot.data;
-        return Text(totalAmount != null ? totalAmount.toStringAsFixed(2) : '0.00', style: colorText);
-      }
-    },
-  );
-}
+    return FutureBuilder<double>(
+      future: totalAmount(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          // Verifica si snapshot.data es nulo antes de acceder a toStringAsFixed(2)
+          final totalAmount = snapshot.data;
+          return Text(totalAmount != null ? totalAmount.toStringAsFixed(2) : '0.00', style: colorText);
+        }
+      },
+    );
+  }
+
+  FutureBuilder<int> buildTotalProducts() {
+    return FutureBuilder<int>(
+      future: totalProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final totalProducts = snapshot.data;
+          final isButtonEnabled = totalProducts != null && totalProducts > 0;
+
+          return ElevatedButton(
+            style: colorButton,
+            onPressed: isButtonEnabled
+                ? () async {
+                    final double amount = await totalAmount();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CheckoutScreen(totalPrice: amount),
+                      ),
+                    );
+                  }
+                : null, // Deshabilita el botón si no hay productos en el carrito
+            child: Text('Continuar compra', style: colorButtonText),
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,21 +268,7 @@ class CardTotal extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: colorButton,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed("checkout");
-                    },
-                    child: Text('Continuar compra', style: colorButtonText),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: colorButton,
-                    onPressed: () {},
-                    child: Text('Eliminar orden', style: colorButtonText),
-                  ),
+                  child: buildTotalProducts(),
                 ),
               ],
             ),

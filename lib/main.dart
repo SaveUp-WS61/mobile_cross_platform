@@ -71,7 +71,6 @@ class MainApp extends StatelessWidget {
           "bot_chat": (context) => const BotChatScreen(),
           "add_card": (context) => const AddCardScreen(),
           "cart": (context) => CartScreen(),
-          "checkout": (context) => const CheckoutScreen(),
           "search_products": (context) => const SearchProductsScreen(),
           "login": (context) => LoginScreen(),
           "recover_password":(context) => RecoverPasswordScreen(),
