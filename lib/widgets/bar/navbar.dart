@@ -57,9 +57,9 @@ class _NavbarState extends State<Navbar> {
 
               if(accountData != null) {
                 if (accountType == 'customer') {
-                  Navigator.of(context).pushNamed("products");
+                  Navigator.of(context).pushReplacementNamed("products");
                 } else if (accountType == 'company') {
-                  Navigator.of(context).pushNamed("company_products");
+                  Navigator.of(context).pushReplacementNamed("company_products");
                 }
               }
             },
@@ -89,8 +89,16 @@ class _NavbarState extends State<Navbar> {
           ListTile(
             leading: Icon(Icons.history),
             title: Text("Historial"),
-            onTap: () {
-              Navigator.of(context).pushNamed("history_buys");
+            onTap: () async {
+              final accounts = await DbHelper().getAccounts();
+
+              if(accountData != null) {
+                if (accountType == 'customer') {
+                  Navigator.of(context).pushNamed("history_buys");
+                } else if (accountType == 'company') {
+                  Navigator.of(context).pushNamed("history_sales");
+                }
+              }
             },
           ),
           Expanded(
