@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/utils/dbhelper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,8 +31,18 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     // Navegar a la pantalla de inicio después de 2100 milisegundos
-    Future.delayed(const Duration(milliseconds: 2100), () {
-      Navigator.of(context).pushReplacementNamed("login");
+    Future.delayed(const Duration(milliseconds: 2100), () async {
+      final accounts = await DbHelper().getAccounts();
+
+      if(accounts.isEmpty) {
+        Navigator.of(context).pushReplacementNamed("home");
+      }
+      else if(accounts[0].type == "customer") {
+        Navigator.of(context).pushReplacementNamed("products");
+      }
+      else if(accounts[0].type == "company") {
+        Navigator.of(context).pushReplacementNamed("company_products");
+      }
     });
   }
 

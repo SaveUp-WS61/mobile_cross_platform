@@ -1,58 +1,46 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:saveup/utils/dbhelper.dart';
 import 'package:intl/intl.dart';
 import 'package:time_machine/time_machine.dart';
 
-class HistoryBuysScreen extends StatefulWidget {
-  const HistoryBuysScreen({Key? key}) : super(key: key);
+class HistorySalesScreen extends StatefulWidget {
+  const HistorySalesScreen({Key? key}) : super(key: key);
 
   @override
-  _HistoryBuysScreenState createState() => _HistoryBuysScreenState();
+  _HistorySalesScreenState createState() => _HistorySalesScreenState();
 }
 
-class _HistoryBuysScreenState extends State<HistoryBuysScreen> {
-  late List<Map<String, dynamic>> _historyBuys;
+class _HistorySalesScreenState extends State<HistorySalesScreen> {
+  late List<Map<String, dynamic>> _historySales;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _historyBuys = []; // Inicializar _historyBuys como una lista vacía
-    // Llama a la función para obtener el historial de compras cuando se inicializa el widget
-    _getHistoryBuys();
+    _historySales = [];
+    _getHistorySales();
   }
 
-  // Función para obtener el historial de compras desde la API
-  Future<void> _getHistoryBuys() async {
+  Future<void> _getHistorySales() async {
     final accounts = await DbHelper().getAccounts();
     final account = accounts[0];
 
-    try {
-      final response = await http.get(
-        Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/purchase/${account.tableId}/data'), // Reemplaza 1 con el ID correcto
-      );
+    final response = await http.get(
+      Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/sale/${account.tableId}/data'),
+    );
 
-      if (response.statusCode == 200) {
-        final List<dynamic> historyBuys = json.decode(response.body);
-        setState(() {
-          _historyBuys = List<Map<String, dynamic>>.from(historyBuys);
-          _isLoading = false;
-        });
-      } else {
-        // Manejar el error de la solicitud HTTP si es necesario
-        print('Error en la solicitud. Código de estado: ${response.statusCode}');
-        setState(() {
-          _isLoading = false; // Marcar la solicitud como completada incluso en caso de error
-        });
-      }
-    } catch (error) {
-      // Manejar errores de red u otros errores
-      print('Error: $error');
+    if (response.statusCode == 200) {
+      final List<dynamic> historySales = json.decode(response.body);
       setState(() {
-        _isLoading = false; // Marcar la solicitud como completada incluso en caso de error
+        _historySales = List<Map<String, dynamic>>.from(historySales);
+        _isLoading = false;
+      });
+    } else {
+      print('Error en la solicitud. Código de estado: ${response.statusCode}');
+      setState(() {
+        _isLoading = false;
       });
     }
   }
@@ -61,23 +49,23 @@ class _HistoryBuysScreenState extends State<HistoryBuysScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Historial de Compras'),
+        title: const Text('Historial de Ventas'),
         centerTitle: true,
         backgroundColor: const Color(0xFF67C5C8),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _historyBuys.isNotEmpty
-              ? _BuysView(historyBuys: _historyBuys)
-              : const Center(child: Text('No hay historial de compras')),
+          : _historySales.isNotEmpty
+              ? _SalesView(historySales: _historySales)
+              : const Center(child: Text('No hay historial de ventas')),
     );
   }
 }
 
-class _BuysView extends StatelessWidget {
-  final List<Map<String, dynamic>> historyBuys;
+class _SalesView extends StatelessWidget {
+  final List<Map<String, dynamic>> historySales;
 
-  const _BuysView({Key? key, required this.historyBuys}) : super(key: key);
+  const _SalesView({Key? key, required this.historySales}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +101,79 @@ class _BuysView extends StatelessWidget {
               ),
               child: const Center(
                 child: Text(
-                  'Empresa',
+                  'Apellido',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(
+                color: const Color(0xFF201F34),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Center(
+                child: Text(
+                  'Orden',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(
+                color: const Color(0xFF201F34),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Center(
+                child: Text(
+                  'Producto',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(
+                color: const Color(0xFF201F34),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Center(
+                child: Text(
+                  'Monto',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(
+                color: const Color(0xFF201F34),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Center(
+                child: Text(
+                  'Cantidad',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -139,39 +199,21 @@ class _BuysView extends StatelessWidget {
               ),
             ),
           ),
-          DataColumn(
-            label: Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                color: const Color(0xFF201F34),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: const Center(
-                child: Text(
-                  'Dirección',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
-        rows: historyBuys.map<DataRow>((buy) {
+        rows: historySales.map<DataRow>((sale) {
           return DataRow(
             cells: [
               DataCell(
                 Container(
+                  width: 100,
                   height: 30,
-                  padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE95D5D),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Center(
                     child: Text(
-                      buy['name'].toString(), // Reemplaza 'name' con la clave correcta
+                      sale['name'].toString(), // Reemplaza 'dato1' con la clave correcta
                       style: const TextStyle(
                         color: Colors.black,
                       ),
@@ -189,7 +231,7 @@ class _BuysView extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      buy['empresa'].toString(), // Reemplaza 'empresa' con la clave correcta
+                      sale['last_name'].toString(), // Reemplaza 'dato2' con la clave correcta
                       style: const TextStyle(
                         color: Colors.black,
                       ),
@@ -207,7 +249,25 @@ class _BuysView extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      _formatDate(buy['date']), // Reemplaza 'date' con la clave correcta
+                      sale['orders'].toString(), // Reemplaza 'dato3' con la clave correcta
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                Container(
+                  height: 30,
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE95D5D),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Text(
+                      sale['producto'].toString(), // Reemplaza 'dato4' con la clave correcta
                       style: const TextStyle(
                         color: Colors.black,
                       ),
@@ -225,7 +285,43 @@ class _BuysView extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      buy['pay_address'].toString(), // Reemplaza 'estado' con la clave correcta
+                      sale['price'].toString(), // Reemplaza 'dato5' con la clave correcta
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                Container(
+                  width: 100,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE95D5D),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Text(
+                      sale['quantity'].toString(), // Reemplaza 'dato6' con la clave correcta
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                Container(
+                  width: 100,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE95D5D),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Text(
+                      _formatDate(sale['date']), // Reemplaza 'dato7' con la clave correcta
                       style: const TextStyle(
                         color: Colors.black,
                       ),

@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +38,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   animated_splash_screen: ^1.3.0
   provider: ^6.0.5
+  image_picker: ^1.0.4
+  firebase_core: ^2.22.0
+  firebase_storage: ^11.5.0
+  firebase_auth: ^4.13.0
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  intl: ^0.18.1
+  time_machine: ^0.9.17
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +80,10 @@ flutter:
     - assets/visa.png
     - assets/coca_cola.jpg
     - assets/logo.png
-    - assets/background.png
+    - assets/check.png
+    - assets/foto_profile.png
+    - assets/delete.png
+    - assets/background.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

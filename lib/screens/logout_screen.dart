@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:saveup/utils/dbhelper.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
+
+  Future<void> deleteProductsOfCart() async {
+    final productsCart = await DbHelper().getCart();
+
+    for (final product in productsCart) {
+      final productAPI = await http.get(Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/products/${product.productId}'));
+
+      if (productAPI.statusCode == 200) {
+        final data = json.decode(productAPI.body);
+
+        final productStock = data['stock'];
+        final newStock = productStock + product.quantity;
+
+        final response = await http.put(
+          Uri.parse('https://saveup-production.up.railway.app/api/saveup/v1/products/${product.productId}/stock'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(newStock)
+        );
+
+        if (response.statusCode == 200) {
+          print("Stock actualizado");
+        } else {
+          print("Error al actualizar el stock");
+        }
+
+      } else {
+        print("Error al obtener los datos del producto");
+        print(productAPI.body);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +80,22 @@ class LogoutScreen extends StatelessWidget {
                             height: 0,
                           ),
                         ),
-                        onPressed: () { Navigator.of(context).pushReplacementNamed("products"); },
+                        onPressed: () async {
+                          // Eliminar todos los datos de la tabla "account"
+                          final dbHelper = DbHelper();
+                          final productsCart = await dbHelper.getCart();
+                          int productsCartLength = productsCart.length;
+
+                          if(productsCartLength != 0) {
+                            await deleteProductsOfCart();
+                          }
+
+                          await dbHelper.deleteAllCartItems();
+                          await dbHelper.deleteAllAccounts();
+
+                          // Redirigir a la pantalla de login
+                          Navigator.of(context).pushReplacementNamed("home");
+                        },
                       ),
                       const SizedBox(width: 30),
                       MaterialButton(
