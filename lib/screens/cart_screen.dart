@@ -220,7 +220,10 @@ class CardTotal extends StatelessWidget {
     return IntrinsicHeight(
       child: Card(
         color: Color(0xFF201F34),
-        margin: EdgeInsets.all(16),
+        margin: EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
         child: Column(
           children: [
             Row(
@@ -338,6 +341,10 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Color(0xFF201F34),
+      margin: EdgeInsets.all(20),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
